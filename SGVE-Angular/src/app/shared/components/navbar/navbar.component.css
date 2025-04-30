@@ -1,0 +1,68 @@
+/* src/app/components/header/header.component.css */
+
+/* Color personalizado para el fondo del navbar */
+.navbar {
+    background-color: #0a192f !important; /* Color navy oscuro */
+  }
+  
+  /* Estilo para el logo */
+  .navbar-brand span {
+    color: #64ffda; /* Color turquesa para "Tech" */
+  }
+  
+  /* Espacio para evitar que el contenido quede debajo del navbar fijo */
+  .navbar-spacer {
+    height: 56px; /* Altura por defecto del navbar */
+  }
+  
+  @media (min-width: 992px) {
+    .navbar-spacer {
+      height: 60px; /* Altura en pantallas grandes */
+    }
+  }
+  
+  /* Color de fondo para los menús dropdown */
+  .dropdown-menu {
+    background-color: #112240; /* Color navy más claro */
+  }
+  
+  .dropdown-item {
+    color: white;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #233554; /* Color navy aún más claro */
+    color: #64ffda;
+  }
+  
+  /* Estilo para enlaces activos */
+  .nav-link.active {
+    color: #64ffda !important;
+  }
+  
+  /* Estilos para el campo de búsqueda */
+  .form-control {
+    background-color: #112240;
+    color: white;
+    border: 1px solid #64ffda;
+  }
+  
+  .form-control::placeholder {
+    color: #8892b0;
+    opacity: 0.8;
+  }
+  
+  .btn-outline-info {
+    color: #64ffda;
+    border-color: #64ffda;
+  }
+  
+  .btn-outline-info:hover {
+    background-color: #64ffda;
+    color: #0a192f;
+  }
+  
+  /* Estilo para el divider en dropdowns */
+  .dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }

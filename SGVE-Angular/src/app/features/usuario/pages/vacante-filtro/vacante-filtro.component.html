@@ -1,0 +1,52 @@
+<div class="card p-3 mb-4">
+  <form [formGroup]="filtroForm" (ngSubmit)="aplicarFiltro()">
+    <div class="row g-2">
+
+      <!-- Categoría -->
+      <div class="col-md-3">
+        <label class="form-label">Categoría</label>
+        <select class="form-select" formControlName="nombre">
+          <option value="">Todas</option>
+          @for (cat of categorias; track cat.idCategoria) {
+            <option [value]="cat.idCategoria">{{ cat.nombre }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Empresa -->
+      <div class="col-md-3">
+        <label class="form-label">Empresa</label>
+        <select class="form-select" formControlName="nombreEmpresa">
+          <option value="">Todas</option>
+          @for (emp of empresas; track emp.idEmpresa) {
+            <option [value]="emp.idEmpresa">{{ emp.nombreEmpresa }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Contrato -->
+      <div class="col-md-3">
+        <label class="form-label">Tipo de contrato</label>
+        <input type="text" class="form-control" formControlName="contrato">
+      </div>
+
+      <!-- Salario mínimo -->
+      <div class="col-md-3">
+        <label class="form-label">Salario mínimo</label>
+        <input type="number" class="form-control" formControlName="salarioMin">
+      </div>
+
+      <!-- Salario máximo -->
+      <div class="col-md-3">
+        <label class="form-label">Salario máximo</label>
+        <input type="number" class="form-control" formControlName="salarioMax">
+      </div>
+
+    </div>
+
+    <div class="mt-3 text-end">
+      <button type="submit" class="btn btn-primary me-2">Aplicar</button>
+      <button type="button" class="btn btn-secondary" (click)="limpiarFiltros()">Limpiar</button>
+    </div>
+  </form>
+</div>

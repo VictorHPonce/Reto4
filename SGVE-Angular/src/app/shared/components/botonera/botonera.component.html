@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-around">
+    @if(parent == 'card') {
+    <div class="d-flex flex-column align-items-center">
+        <a [routerLink]="['/vacantes', idVacante]" class="btn btn-outline-info btn-sm d-flex flex-column align-items-center m-2">
+            <app-icon icon="search"></app-icon>
+            <span class="mt-2">Ver Detalle</span>
+          </a>
+    </div>
+    }@else if(parent == 'view') {
+    <div class="d-flex flex-column align-items-center">
+        <a [routerLink]="['/home']" class="btn btn-outline-secondary btn-sm d-flex flex-column align-items-center m-2">
+            <app-icon icon="arrow-return-left"></app-icon>
+            <span class="mt-2">Volver al Listado</span>
+          </a>
+    </div>
+    }
+    <div class="d-flex flex-column align-items-center">
+        <a [routerLink]="['/updateuser', idVacante]" class="btn btn-outline-warning btn-sm d-flex flex-column align-items-center m-2">
+            <app-icon icon="pencil-square"></app-icon>
+            <span class="mt-2">Actualizar</span>
+          </a>
+    </div>
+    <div class="d-flex flex-column align-items-center">
+        <button class="btn btn-outline-danger btn-sm d-flex flex-column align-items-center m-2" (click)="borrarVacante(idVacante)">
+            <app-icon icon="trash"></app-icon>
+            <span class="mt-2">Borrar</span>
+          </button>
+    </div>
+</div>

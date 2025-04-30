@@ -1,0 +1,64 @@
+<div class="container mt-5">
+    <div class="row justify-content-center align-items-start g-4">
+      
+      <!-- Formulario de administrador -->
+      <div class="col-md-5">
+        <app-register
+          [rol]="'ADMON'"
+          [usuario]="adminEditando()"
+          (guardado)="onUsuarioGuardado()">
+        </app-register>
+      </div>
+  
+<!-- Tabla de administradores -->
+<div class="col-md-7">
+    <h4 class="text-center mb-3">Administradores registrados</h4>
+    <table class="table table-hover table-bordered">
+      <thead class="table-light">
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Estado</th>
+          <th>Desactivar/Activar</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (admin of administradores(); track admin.email) {
+          <tr>
+            <td>{{ admin.nombre }}</td>
+            <td>{{ admin.email }}</td>
+            <td>
+                @if (admin.enabled) {
+                  <span class="badge bg-success">Activo</span>
+                } @else {
+                  <span class="badge bg-secondary">Inactivo</span>
+                }
+              </td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-warning me-2" (click)="onEditar(admin)">Editar</button>
+                <button
+                  class="btn btn-sm"
+                  [ngClass]="admin.enabled ? 'btn-outline-danger' : 'btn-outline-success'"
+                  (click)="toggleEstado(admin)">
+                  <i class="bi" [ngClass]="admin.enabled ? 'bi-person-x' : 'bi-person-check'"></i>
+                </button>
+              </td>
+              
+              
+          </tr>
+        }
+      </tbody>
+    </table>
+  
+    @if (administradores().length === 0) {
+      <div class="text-center py-4 text-muted">
+        <i class="bi bi-person-x display-4 mb-3"></i>
+        <p class="lead">No hay administradores registrados</p>
+      </div>
+    }
+  </div>
+  
+  
+    </div>
+  </div>
+  

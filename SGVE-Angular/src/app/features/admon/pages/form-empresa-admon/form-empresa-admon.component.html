@@ -1,0 +1,49 @@
+<section class="container mt-4">
+  <h3 class="mb-3">{{ tipo }} Empresa</h3>
+  <form class="card shadow p-4" [formGroup]="empresaForm" (ngSubmit)="guardar()">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="cif" class="form-label">CIF</label>
+        <input type="text" id="cif" class="form-control" formControlName="cif">
+      </div>
+      <div class="col-md-6">
+        <label for="nombreEmpresa" class="form-label">Nombre Empresa</label>
+        <input type="text" id="nombreEmpresa" class="form-control" formControlName="nombreEmpresa">
+      </div>
+
+      <div class="col-md-6">
+        <label for="direccionFiscal" class="form-label">Dirección Fiscal</label>
+        <input type="text" id="direccionFiscal" class="form-control" formControlName="direccionFiscal">
+      </div>
+      <div class="col-md-6">
+        <label for="pais" class="form-label">País</label>
+        <input type="text" id="pais" class="form-control" formControlName="pais">
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <h5>Datos del Usuario</h5>
+    <div formGroupName="usuario" class="row g-3"> <!-- Aquí agregamos el formGroupName -->
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" formControlName="email">
+      </div>
+      <div class="col-md-6">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" id="nombre" class="form-control" formControlName="nombre">
+      </div>
+      <div class="col-md-6">
+        <label for="apellidos" class="form-label">Apellidos</label>
+        <input type="text" id="apellidos" class="form-control" formControlName="apellidos">
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button type="submit" class="btn btn-success">
+        {{ tipo === 'Insertar' ? 'Guardar' : 'Actualizar' }}
+      </button>
+      <a [routerLink]="['/admon/empresas']" class="btn btn-secondary">Volver</a>
+    </div>
+  </form>
+</section>

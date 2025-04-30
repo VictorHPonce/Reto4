@@ -1,0 +1,100 @@
+<!-- vacantes-empresa.component.html -->
+<div class="container py-4">
+  <h2 class="mb-4">Mis Vacantes</h2>
+  
+  @if (loading()) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-3">Cargando vacantes...</p>
+    </div>
+  } @else if (vacantes().length === 0) {
+    <div class="alert alert-info">
+      No tienes vacantes publicadas. 
+      <a [routerLink]="['/empresa/vacantes/nueva']" class="btn btn-sm btn-primary ms-2">
+        Publicar tu primera vacante
+      </a>
+    </div>
+  } @else {
+    <div class="row g-4">
+      @for (vacante of vacantes(); track vacante.idVacante) {
+        <div class="col-md-6 col-lg-4 d-flex">
+          <div class="card shadow-sm border-0 w-100 d-flex flex-column">
+            @if (vacante.imagen) {
+              <img
+                [src]="vacante.imagen"
+                alt="Imagen de la vacante"
+                class="card-img-top"
+                style="height: 200px; object-fit: cover"
+                (error)="handleImageError($event)"
+              />
+            } @else {
+              <div class="imagen-placeholder d-flex align-items-center justify-content-center bg-light text-muted">
+                <i class="bi bi-briefcase fs-1"></i>
+              </div>
+            }
+
+            <div class="card-body d-flex flex-column flex-grow-1">
+              <div class="mb-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <h5 class="card-title mb-0">{{ vacante.nombre }}</h5>
+                  @if (vacante.destacado) {
+                    <span class="badge bg-warning text-dark">Destacado</span>
+                  }
+                </div>
+
+                <p class="card-text text-muted">{{ vacante.descripcion }}</p>
+
+                <ul class="list-unstyled small mb-3">
+                  @if (vacante.fecha && vacante.fecha.length >= 3) {
+                    <li><strong>Fecha:</strong> {{ vacante.fecha[2] }}/{{ vacante.fecha[1] }}/{{ vacante.fecha[0] }}</li>
+                  }
+                  @if (vacante.salario) {
+                    <li><strong>Salario:</strong> {{ vacante.salario | currency:'EUR' }}</li>
+                  }
+                  @if (vacante.estatus) {
+                    <li><strong>Estado:</strong> 
+                      <span 
+                        class="badge"
+                        [class.bg-success]="vacante.estatus === 'CREADA'"
+                        [class.bg-danger]="vacante.estatus === 'CANCELADA'"
+                        [class.bg-secondary]="vacante.estatus === 'ASIGNADA'">
+                        {{ vacante.estatus }}
+                      </span>
+                    </li>
+                  }
+                  @if (vacante.categoria && vacante.categoria.nombre) {
+                    <li><strong>Categoría:</strong> {{ vacante.categoria.nombre }}</li>
+                  }
+                </ul>
+
+                @if (vacante.detalles) {
+                  <p class="text-muted fst-italic">"{{ vacante.detalles }}"</p>
+                }
+              </div>
+
+              <div class="mt-auto d-flex justify-content-between">
+                <button
+                  class="btn btn-sm btn-outline-primary"
+                  [routerLink]="['/empresa/vacantes', vacante.idVacante]"
+                >
+                  <i class="bi bi-pencil me-1"></i> Editar
+                </button>
+
+                @if (vacante.estatus !== 'CANCELADA') {
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="cancelarVacante(vacante.idVacante)"
+                  >
+                    <i class="bi bi-x-circle me-1"></i> Cancelar
+                  </button>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

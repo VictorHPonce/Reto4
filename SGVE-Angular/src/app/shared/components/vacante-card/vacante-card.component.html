@@ -1,0 +1,48 @@
+<div class="card p-3 shadow rounded-3 border mb-3">
+  <div class="d-flex align-items-start">
+    <img 
+      [src]="vacante.imagen" 
+      alt="Imagen de {{ vacante.nombre }}" 
+      class="rounded me-3" 
+      style="width: 50px; height: 50px; object-fit: contain"
+    />
+
+    <div class="flex-grow-1">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          @if (vacante.destacado) {
+            <span class="badge bg-primary mb-1">Destacada</span>
+          }
+          <h5 class="mb-1">
+            {{ vacante.nombre }} 
+            <small class="text-muted">- {{ vacante.empresa.nombreEmpresa }}</small>
+          </h5>
+        </div>
+        <button class="btn btn-secondary btn-sm" [routerLink]="['/usuario/postulacion', vacante.idVacante]" title="Postulación">
+          <!-- <i class="bi bi-bookmark"></i> -->
+           Solicitar
+        </button>
+      </div>
+
+      <div class="text-muted small mb-2">
+        {{ vacante.empresa.direccionFiscal }} | {{ vacante.estatus }} 
+        | <span>Hace {{ calcularHorasDesde(vacante.fecha).valor }} {{ calcularHorasDesde(vacante.fecha).unidad }}</span>
+        <span class="badge bg-success ms-1">Nueva</span>
+      </div>
+
+      <p class="mb-2">
+        {{ vacante.descripcion }}
+      </p>
+
+      <div class="text-muted small">
+        <span>Contrato indefinido</span> | 
+        <span>Jornada completa</span> | 
+        @if(vacante.salario > 0) {
+          <span class="text-success">Salario: {{ vacante.salario }}</span>
+        } @else {
+          <span class="text-danger">Salario no disponible</span>
+        }
+      </div>
+    </div>
+  </div>
+</div>

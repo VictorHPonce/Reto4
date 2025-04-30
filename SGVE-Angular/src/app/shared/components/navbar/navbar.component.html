@@ -1,0 +1,157 @@
+<!-- src/app/components/header/header.component.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Vacantes de Empleo <span class="text-info">Tech</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      @if (!authService.isLoggedIn()) {
+        <!-- Menú para usuarios no autenticados -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <i class="bi bi-house-door-fill"></i> Inicio
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">
+              <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+            </a>
+          </li>
+        </ul>
+      } @else {
+        <!-- Menú para usuarios autenticados -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+          
+          <!-- Menú condicionado por rol -->
+          @if (authService.hasRole('ADMON')) {
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-shield-lock"></i> Administración
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admon/empresas']" routerLinkActive="active">
+                    <i class="bi bi-people"></i> Empresas
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admon/categorias']" routerLinkActive="active">
+                    <i class="bi bi-people"></i> Categorias
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admon/gestion/usuarios']" routerLinkActive="active">
+                    <i class="bi bi-people"></i> Usuarios
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admon/empresa/nueva']" routerLinkActive="active">
+                    <i class="bi bi-graph-up"></i> Alta Empresa
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admon/categoria/nueva']" routerLinkActive="active">
+                    <i class="bi bi-graph-up"></i> Alta categoria
+                  </a>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admon/usuarios/crear']" routerLinkActive="active">
+                    <i class="bi bi-graph-up"></i> Alta ADMON
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" routerLink="/admin/settings" routerLinkActive="active">
+                    <i class="bi bi-gear"></i> Configuración
+                  </a>
+                </li>
+              </ul>
+            </li>
+          }
+          
+          @if (authService.hasRole('EMPRESA')) {
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-building"></i> Empresa
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" routerLink="empresa/vacantes" routerLinkActive="active">
+                    <i class="bi bi-briefcase"></i> Ver Vacantes
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" routerLink="empresa/vacantes/nueva" routerLinkActive="active">
+                    <i class="bi bi-plus-circle"></i> Nueva Vacante
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" routerLink="/empresa/perfil" routerLinkActive="active">
+                    <i class="bi bi-building-gear"></i> Perfil Empresarial
+                  </a>
+                </li>
+              </ul>
+            </li>
+          }
+          
+          @if (authService.hasRole('CLIENTE')) {
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person"></i> Cliente
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/cliente/vacantes']" routerLinkActive="active">
+                    <i class="bi bi-search"></i> Buscar Vacantes
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/usuario/solicitudes']" routerLinkActive="active">
+                    <i class="bi bi-send"></i> Mis Solicitudes
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/Usuario/cv']" routerLinkActive="active">
+                    <i class="bi bi-file-earmark-person"></i> Mi CV
+                  </a>
+                </li>
+              </ul>
+            </li>
+          }
+        </ul>
+      
+      
+        <div class="dropdown d-inline-block">
+          <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle m-2"></i> {{ getUserName() }}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <!-- <li>
+              <a class="dropdown-item" routerLink="/perfil">
+                <i class="bi bi-person-badge"></i> Mi Perfil
+              </a>
+            </li> -->
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <button class="dropdown-item" (click)="logout()">
+                <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+              </button>
+            </li>
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</nav>
+<!-- Espaciador para compensar el navbar fixed-top -->
+<div class="navbar-spacer"></div>

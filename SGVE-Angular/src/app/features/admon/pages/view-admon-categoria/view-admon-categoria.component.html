@@ -1,0 +1,64 @@
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">Listado de Categorías</h3>
+                    @if(isAdmin) {
+                    <a [routerLink]="['/admon/categoria/nueva']" class="btn btn-light btn-sm">
+                        <i class="bi bi-arrow-clockwise me-2"></i>Nueva Categoria
+                    </a>
+                    }
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    @if(isAdmin) {
+                                    <th class="text-center">Acciones</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for( categoria of categorias; track categoria.idCategoria ) {
+
+                                <tr>
+                                    <td>{{ categoria.idCategoria }}</td>
+                                    <td>{{ categoria.nombre }}</td>
+                                    <td>{{ categoria.descripcion }}</td>
+                                    @if(isAdmin) {
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a [routerLink]="['/admon/categoria/', categoria.idCategoria]"
+                                                class="btn btn-sm btn-outline-primary me-2">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <button (click)="eliminarCategoria(categoria.idCategoria ?? 0)"
+                                                class="btn btn-sm btn-outline-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    }
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+
+                        <!-- Empty state -->
+                         @if(categorias.length === 0) {
+                        <div class="text-center py-4 text-muted">
+                            <i class="bi bi-box-seam display-4 mb-3"></i>
+                            <p class="lead">No hay categorías registradas</p>
+                        </div>
+                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

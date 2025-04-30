@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <h3 class="mb-4">
+    @if (solicitudId !== null) {
+      Editar solicitud #{{ solicitudId }}
+    } @else {
+      Postulación a Vacante #{{ vacante.idVacante }}
+    }
+  </h3>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-4">
+    <div class="mb-3">
+      <label for="comentarios" class="form-label">Comentarios</label>
+      <textarea id="comentarios" class="form-control" rows="4" formControlName="comentarios"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="archivo" class="form-label">Currículum (PDF)</label>
+      <input
+        type="file"
+        id="archivo"
+        class="form-control"
+        (change)="onFileChange($event)"
+        accept="application/pdf"
+      />
+      @if (pdfBase64) {
+        <div class="text-success mt-2">
+          Archivo previamente cargado.
+        </div>
+      }
+      
+    </div>
+
+    <button class="btn btn-success w-100" type="submit" [disabled]="form.invalid">
+      @if (solicitudId !== null) { Guardar Cambios } @else { Enviar Solicitud }
+    </button>
+  </form>
+</div>

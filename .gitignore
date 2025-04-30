@@ -1,0 +1,44 @@
+
+# === General ===
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db
+.env
+.idea/
+.vscode/
+node_modules/
+dist/
+target/
+build/
+bin/
+*.iml
+
+# === Angular ===
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+frontend/.angular/config.json
+frontend/.env
+
+# === Spring Boot (Maven) ===
+backend/target/
+backend/*.log
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# === OS-specific ===
+*.bak
+*.old
+~$*
+*.orig
+
+# === Java ===
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+*.hprof

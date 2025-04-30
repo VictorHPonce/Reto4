@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: SGVE-SpringBoot
+  datasource:
+    url: jdbc:mysql://mysql:3306/vacantes_BBDD_2025_RETO
+    username: vhpdev
+    password: password@vhpdev
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+jwt:
+  secret: TuClaveSecretaDebeSerLoSuficientementeLargaParaSerSegura
+  expiration: 86400000
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG

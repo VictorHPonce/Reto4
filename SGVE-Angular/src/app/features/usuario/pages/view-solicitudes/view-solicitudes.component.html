@@ -1,0 +1,28 @@
+<div class="container">
+  <h2>Mis Solicitudes</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Comentarios</th>
+        <th>Archivo</th>
+        <th>Vacante</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (solicitud of solicitudes; track solicitud.idSolicitud) {
+        <tr>
+          <td>{{ solicitud.fecha | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ solicitud.comentarios }}</td>
+          <td>{{ solicitud.archivo }}</td>
+          <td>{{ solicitud.idSolicitud }}</td>
+          <td>
+            <button class="btn btn-primary" [routerLink]="['/usuario/solicitudes/edit', solicitud.idSolicitud]">Editar</button>
+            <button class="btn btn-danger" (click)="eliminarSolicitud(solicitud.idSolicitud)">Eliminar</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

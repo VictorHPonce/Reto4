@@ -1,0 +1,90 @@
+<div class="login-container">
+  <div class="card login-card">
+    <div class="card-header text-center border-0 bg-transparent pt-4 pb-1">
+      <h3 class="mb-0">Iniciar Sesión</h3>
+      <p class="text-muted small">Vacantes de Empleo <span class="text-info">Tech</span></p>
+    </div>
+    
+    <div class="card-body px-4 py-4">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Email field -->
+        <div class="mb-3">
+          <label for="email" class="form-label fw-medium">Email</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input 
+              type="email" 
+              id="email" 
+              formControlName="email" 
+              class="form-control"
+              placeholder="ejemplo@correo.com"
+              [class.is-invalid]="loginForm.get('email')?.touched && loginForm.get('email')?.invalid"
+            >
+          </div>
+          @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']) {
+            <small class="text-danger">El email es obligatorio</small>
+          }
+          @if (loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']) {
+            <small class="text-danger">Formato de email inválido</small>
+          }
+        </div>
+
+        <!-- Password field -->
+        <div class="mb-4">
+          <label for="password" class="form-label fw-medium">Contraseña</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light">
+              <i class="bi bi-lock"></i>
+            </span>
+            <input 
+              [type]="showPassword ? 'text' : 'password'" 
+              id="password" 
+              formControlName="password"
+              class="form-control"
+              [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
+            >
+            <button 
+              type="button" 
+              class="input-group-text bg-light" 
+              (click)="togglePasswordVisibility()"
+            >
+              <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']) {
+            <small class="text-danger">La contraseña es obligatoria</small>
+          }
+        </div>
+
+        <!-- Error message -->
+        @if (errorMessage) {
+          <div class="alert alert-danger py-2" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            {{ errorMessage }}
+          </div>
+        }
+
+        <!-- Submit button -->
+        <button 
+          type="submit" 
+          class="btn btn-primary w-100 mt-2 d-flex align-items-center justify-content-center"
+          [disabled]="loginForm.invalid || loading"
+        >
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          } @else {
+            <i class="bi bi-box-arrow-in-right me-2"></i>
+          }
+          {{ loading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
+        </button>
+      </form>
+    </div>
+    <!-- Añade este botón justo después de tu botón de login normal -->
+    <button type="button" (click)="testDirectLogin()" class="btn btn-secondary">Probar Login Directo</button>
+    <div class="card-footer bg-transparent border-0 text-center pb-4">
+      <p class="small mb-0">¿No tienes cuenta? <a [routerLink]="['/register']" class="text-info">Regístrate aquí</a></p>
+    </div>
+  </div>
+</div>

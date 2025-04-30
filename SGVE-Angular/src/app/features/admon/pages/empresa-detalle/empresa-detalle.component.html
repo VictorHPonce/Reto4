@@ -1,0 +1,25 @@
+
+<section class="container mt-4">
+    <div class="card shadow-lg">
+      <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Detalles de la Empresa</h4>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ empresa?.nombreEmpresa }}</h5>
+        <p><strong>CIF:</strong> {{ empresa?.cif }}</p>
+        <p><strong>Dirección Fiscal:</strong> {{ empresa?.direccionFiscal }}</p>
+        <p><strong>País:</strong> {{ empresa?.pais }}</p>
+  
+        <hr>
+        <h5>Datos del Usuario Asociado</h5>
+        <p><strong>Email:</strong> {{ empresa?.usuario?.email }}</p>
+        <p><strong>Nombre:</strong> {{ empresa?.usuario?.nombre }} {{ empresa?.usuario?.apellidos }}</p>
+        <p><strong>Rol:</strong> {{ empresa?.usuario?.rol }}</p>
+        <p><strong>Estado:</strong> {{ empresa?.usuario?.enabled ? 'Activo' : 'Inactivo' }}</p>
+        <p><strong>Fecha de Registro:</strong> {{ empresa?.usuario?.fechaRegistro| date:'medium' }}</p>
+      </div>
+      <div class="card-footer text-end">
+        <a [routerLink]="['/admon/empresas']" class="btn btn-secondary">Volver</a>
+      </div>
+    </div>
+  </section>

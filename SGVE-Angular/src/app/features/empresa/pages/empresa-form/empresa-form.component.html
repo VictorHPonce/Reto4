@@ -1,0 +1,107 @@
+
+<div class="container mt-4">
+  <h2 class="text-center text-primary">
+    {{ isEdit ? '✏ Editar Vacante' : '📝 Publicar Vacante' }}
+  </h2>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  @if (isLoading) {
+    <div class="text-center py-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2">{{ isEdit ? 'Cargando datos de la vacante...' : 'Procesando...' }}</p>
+    </div>
+  } @else {
+    <form [formGroup]="vacanteForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Nombre del Puesto*</label>
+        <input class="form-control" formControlName="nombre" type="text" placeholder="Ej. Desarrollador Java" />
+        @if (vacanteForm.get('nombre')?.invalid && vacanteForm.get('nombre')?.touched) {
+          <div class="text-danger small mt-1">El nombre del puesto es requerido.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descripción*</label>
+        <textarea class="form-control" formControlName="descripcion" placeholder="Descripción del puesto" rows="4"></textarea>
+        @if (vacanteForm.get('descripcion')?.invalid && vacanteForm.get('descripcion')?.touched) {
+          <div class="text-danger small mt-1">La descripción es requerida.</div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Salario (€)*</label>
+        <input class="form-control" formControlName="salario" type="number" placeholder="Ej. 2500" />
+        @if (vacanteForm.get('salario')?.invalid && vacanteForm.get('salario')?.touched) {
+          <div class="text-danger small mt-1">El salario es requerido y debe ser un valor positivo.</div>
+        }
+      </div>
+
+      <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" formControlName="destacado" id="destacadoCheck" />
+        <label class="form-check-label" for="destacadoCheck">
+          ¿Destacar vacante? 
+          <small class="text-muted">(Las vacantes destacadas aparecen primero en los listados)</small>
+        </label>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">URL de la Imagen</label>
+        <input class="form-control" formControlName="imagen" type="text" placeholder="URL de la imagen" />
+        <small class="text-muted">La imagen se mostrará como cabecera de la vacante</small>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Detalles</label>
+        <textarea class="form-control" formControlName="detalles" placeholder="Más información sobre la vacante (requisitos, condiciones, etc.)" rows="4"></textarea>
+      </div>
+
+      @if (showEmpresaSelector) {
+        <div class="mb-3">
+          <label class="form-label">Selecciona Empresa*</label>
+          <select class="form-select" formControlName="idEmpresa">
+            <option value="" disabled selected>Seleccionar empresa</option>
+            @for (empresa of empresas; track empresa.idEmpresa) {
+              <option [value]="empresa.idEmpresa">{{ empresa.nombreEmpresa }}</option>
+            }
+          </select>
+          @if (vacanteForm.get('idEmpresa')?.invalid && vacanteForm.get('idEmpresa')?.touched) {
+            <div class="text-danger small mt-1">Debes seleccionar una empresa.</div>
+          }
+        </div>
+      } @else {
+        <input type="hidden" formControlName="idEmpresa" />
+      }
+
+      <div class="mb-3">
+        <label class="form-label">Selecciona Categoría*</label>
+        <select class="form-select" formControlName="idCategoria">
+          <option value="" disabled selected>Seleccionar categoría</option>
+          @for (categoria of categorias; track categoria.idCategoria) {
+            <option [value]="categoria.idCategoria">{{ categoria.nombre }}</option>
+          }
+        </select>
+        @if (vacanteForm.get('idCategoria')?.invalid && vacanteForm.get('idCategoria')?.touched) {
+          <div class="text-danger small mt-1">Debes seleccionar una categoría.</div>
+        }
+      </div>
+
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success" [disabled]="vacanteForm.invalid || isLoading">
+          {{ isEdit ? '✏ Actualizar Vacante' : '🚀 Publicar Vacante' }}
+        </button>
+        <button type="button" class="btn btn-outline-secondary" [routerLink]="['/empresa/vacantes']">
+          Cancelar
+        </button>
+      </div>
+      
+      <div class="text-center mt-3">
+        <small class="text-muted">Los campos marcados con * son obligatorios</small>
+      </div>
+    </form>
+  }
+</div>
